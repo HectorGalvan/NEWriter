@@ -1,31 +1,27 @@
-import logo from './logo.svg';
 import './App.css';
-import { Amplify } from 'aws-amplify';
-import config from './aws-exports';
-import "@aws-amplify/ui-react/styles.css";
-import {
-  withAuthenticator,
-  Button,
-  Heading,
-  Image,
-  View,
-  Card,
-} from "@aws-amplify/ui-react";
+import {BrowserRouter as Router, Routes, Route,  NavLink} from 'react-router-dom';
+import Home from './Pages/Home';
+import About from './Pages/About';
+import Premium from './Pages/Premium';
 
-
-Amplify.configure(config);
-
-
-function App({ signOut }) {
+function App() {
   return (
-    <View className="App">
-      <Card>
-        <Image src={logo} className="App-logo" alt="logo" />
-        <Heading level={1}>We now have Auth!</Heading>
-      </Card>
-      <Button onClick={signOut}>Sign Out</Button>
-    </View>
+    <div>
+       <Router>
+        <div className='App'>
+          <NavLink  className='content' exact="true" activeClassName = "active" to="/"> Home</NavLink>
+          <NavLink  className='content' activeClassName="active" to="/about">About</NavLink>
+          <NavLink  className='content' activeClassName="active" to="/premium">Premium</NavLink>
+        </div>
+        <Routes>
+          <Route path="/" element={<Home />}></Route>
+          <Route path="/about" element={<About />}></Route>
+          <Route path="/premium" element={<Premium />}></Route>
+        </Routes>
+      </Router>
+     
+    </div>
   );
 }
 
-export default withAuthenticator(App);
+export default App;
